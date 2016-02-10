@@ -1,0 +1,1 @@
+C:\Python34\python.exe C:\Users\%USERNAME%\Desktop\Python\sceduletask\autoRead\newimport.py
