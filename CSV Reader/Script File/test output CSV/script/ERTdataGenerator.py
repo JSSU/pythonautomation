@@ -19,7 +19,7 @@ def getNameConvention():
 	dt = datetime.datetime.today()
 	daTi = dt.strftime("%Y%m%d_%H%M%S_")
 	GUID = uuid.uuid4()
-   #cName= ("F-UMX-ESR-01-{}{}.csv").format(daTi,GUID)        #Fred modify 2016.3.1
+   #cName= ("F-UMX-ESR-01-{}{}.csv").format(daTi,GUID)
 	cName= ("F-INV-UMX-01-{}{}.csv").format(daTi,GUID)
 	return cName
 def main(fileName):
@@ -33,16 +33,20 @@ def main(fileName):
 	for line in r:
 		before=line  
 		sbefore=line.split(",")
-		installtype=sbefore[11]   #"MTR-LL 5/8SRII ER-ITRON .01CF* BTM/CI  8WHL1A  5'ITRON ERT  * SN=REGID  R/DP BALTIMORE"
-		sinstalltype=installtype.split() #['MTR-LL', '5/8SRII', 'ER-ITRON', '.01CF*', 'BTM/CI', '8WHL1A', "5'ITRON", 'ERT', '*', 'SN=REGID', 'R/DP', 'BALTIMORE']
-		firstdes=sinstalltype[1] #'5/8SRII'
-		seconddes=sinstalltype[2] #'ER-ITRON'
-		sfirstdes=firstdes.split("/") #['5', '8SRII']
-		ldig=getdig(sfirstdes[1])
-		dig=sfirstdes[0]+sfirstdes[1][0:ldig]
-		dis=sfirstdes[1][ldig:]
-		description=dig+" "+dis+" "+seconddes.split("-")[0]
-		after=";;Meter;"+description+";Serial ID;"+sbefore[5]+";;\n"
+		###for ERT reading. No Description
+		#installtype=sbefore[11]   #"MTR-LL 5/8SRII ER-ITRON .01CF* BTM/CI  8WHL1A  5'ITRON ERT  * SN=REGID  R/DP BALTIMORE"
+		#sinstalltype=installtype.split() #['MTR-LL', '5/8SRII', 'ER-ITRON', '.01CF*', 'BTM/CI', '8WHL1A', "5'ITRON", 'ERT', '*', 'SN=REGID', 'R/DP', 'BALTIMORE']
+		#firstdes=sinstalltype[1] #'5/8SRII'
+		#seconddes=sinstalltype[2] #'ER-ITRON'
+		#sfirstdes=firstdes.split("/") #['5', '8SRII']
+		#ldig=getdig(sfirstdes[1])
+		#dig=sfirstdes[0]+sfirstdes[1][0:ldig]
+		#dis=sfirstdes[1][ldig:]
+		#description=dig+" "+dis+" "+seconddes.split("-")[0]
+		###for ERT reading. No Description End.
+		#after=";;ERT;"+description+";Serial ID;"+sbefore[5]+";;\n"
+		#after=";;ERT;"+sbefore[2]+";Serial ID;"+sbefore[5]+";;\n"
+		after=";;ERT;"+"100W"+";ERT ID;"+sbefore[5]+";;\n"
 		w.write(after)
 	r.close()
 	w.close()
